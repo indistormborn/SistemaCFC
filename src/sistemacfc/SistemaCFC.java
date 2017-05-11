@@ -5,6 +5,8 @@
  */
 package sistemacfc;
 
+import sistemacfc.src.control.CadastroControl;
+
 /**
  *
  * @author Indiara
@@ -15,7 +17,8 @@ public class SistemaCFC {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        CadastroControl ctrl = new CadastroControl();
+        ctrl.inicia();
     }
     
 }
