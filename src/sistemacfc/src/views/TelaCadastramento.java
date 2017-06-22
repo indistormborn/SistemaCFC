@@ -5,6 +5,7 @@
  */
 package sistemacfc.src.views;
 
+import java.awt.event.ItemEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,22 +118,22 @@ public class TelaCadastramento extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jTextField30 = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        scroll = new javax.swing.JScrollPane();
+        alunos = new javax.swing.JList<>();
         jLabel27 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
+        numeroAlunos = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        cpfAlunoM = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        nomeAlunoM = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
+        periodoM = new javax.swing.JComboBox<>();
         jLabel32 = new javax.swing.JLabel();
-        jComboBox6 = new javax.swing.JComboBox<>();
+        cursoM = new javax.swing.JComboBox<>();
         jLabel33 = new javax.swing.JLabel();
-        jComboBox7 = new javax.swing.JComboBox<>();
-        jButton5 = new javax.swing.JButton();
+        turmasM = new javax.swing.JComboBox<>();
+        matricularAluno = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -739,12 +740,7 @@ public class TelaCadastramento extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Aluno", jPanel6);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Aluno", "Aluno", "Aluno", "Aluno", "Aluno", "Aluno", "Aluno", "Aluno", "Aluno", "Aluno", "Aluno", "Aluno", "Aluno", "Aluno", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane4.setViewportView(jList1);
+        scroll.setViewportView(alunos);
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel27.setText("Alunos já matriculados na turma");
@@ -752,43 +748,55 @@ public class TelaCadastramento extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel29.setText("Numero de alunos");
 
-        jTextField15.setEditable(false);
-        jTextField15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField15.setText("19");
+        numeroAlunos.setEditable(false);
+        numeroAlunos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel20.setText("Aluno");
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField9.setText("cpf do aluno");
+        cpfAlunoM.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cpfAlunoM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cpfAlunoMKeyPressed(evt);
+            }
+        });
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel30.setText("Nome");
 
-        jTextField10.setEditable(false);
-        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField10.setText("Jão da silva fontes neto");
+        nomeAlunoM.setEditable(false);
+        nomeAlunoM.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel31.setText("Periodo ");
 
-        jComboBox5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vespertino" }));
+        periodoM.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        periodoM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "Matutino", "Vespertino", "Noturno" }));
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel32.setText("Curso");
 
-        jComboBox6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categoria A" }));
+        cursoM.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cursoM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecione>", "A", "B", "C", "D", "E", "Reciclagem" }));
+        cursoM.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cursoMItemStateChanged(evt);
+            }
+        });
 
         jLabel33.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel33.setText("Turmas disponiveis");
 
-        jComboBox7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>" }));
+        turmasM.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        turmasM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>" }));
+        turmasM.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                turmasMItemStateChanged(evt);
+            }
+        });
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton5.setText("Matricular aluno");
+        matricularAluno.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        matricularAluno.setText("Matricular aluno");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -800,35 +808,35 @@ public class TelaCadastramento extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cpfAlunoM, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4)
+                        .addComponent(nomeAlunoM, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scroll)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel27)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel29)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(numeroAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel31)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(periodoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel32)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cursoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel33)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(turmasM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(246, 246, 246)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(matricularAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -836,29 +844,29 @@ public class TelaCadastramento extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cpfAlunoM, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel20)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nomeAlunoM, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel30)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(periodoM, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel31)
-                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cursoM, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel32)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(turmasM, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel33))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel27)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel29)
-                        .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(numeroAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(matricularAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -891,9 +899,9 @@ public class TelaCadastramento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField25ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField25ActionPerformed
 
+        
     private void cadastrarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarUActionPerformed
         if (evt.getActionCommand().equals(cadastrarU.getActionCommand())) {
             String nome = nomeUsuario.getText();
@@ -915,6 +923,46 @@ public class TelaCadastramento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tipoUsuarioActionPerformed
 
+    private void turmasMItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_turmasMItemStateChanged
+        if(evt.getStateChange()==ItemEvent.SELECTED){
+            String codigo = turmasM.getSelectedItem().toString();
+            try {
+                alunos.setModel(controlador.exibirAlunos(codigo));
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCadastramento.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaCadastramento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }//GEN-LAST:event_turmasMItemStateChanged
+
+    private void cpfAlunoMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfAlunoMKeyPressed
+       if(evt.getKeyCode()== evt.VK_ENTER){
+           try {
+               nomeAlunoM.setText(controlador.exibirNomeAluno(cpfAlunoM.getText()));
+           } catch (ClassNotFoundException ex) {
+               Logger.getLogger(TelaCadastramento.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (SQLException ex) {
+               Logger.getLogger(TelaCadastramento.class.getName()).log(Level.SEVERE, null, ex);
+           }
+       }
+    }//GEN-LAST:event_cpfAlunoMKeyPressed
+
+    private void cursoMItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cursoMItemStateChanged
+        if(evt.getStateChange()==ItemEvent.SELECTED){
+            String periodo = periodoM.getSelectedItem().toString();
+            String curso = cursoM.getSelectedItem().toString();
+            try {
+                turmasM.setModel(controlador.exibirTurmas(periodo, curso));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaCadastramento.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCadastramento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_cursoMItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -924,22 +972,21 @@ public class TelaCadastramento extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> alunos;
     private javax.swing.JButton cadastrarC;
     private javax.swing.JButton cadastrarU;
     private javax.swing.JPanel cadastroUsuario;
     private javax.swing.JTextField confirmarSenha;
+    private javax.swing.JTextField cpfAlunoM;
     private javax.swing.JTextField cpfUsuario;
+    private javax.swing.JComboBox<String> cursoM;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JComboBox<String> jComboBox8;
     private javax.swing.JComboBox<String> jComboBox9;
     private javax.swing.JLabel jLabel1;
@@ -986,7 +1033,6 @@ public class TelaCadastramento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -994,11 +1040,8 @@ public class TelaCadastramento extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField jTextField22;
     private javax.swing.JTextField jTextField23;
@@ -1015,11 +1058,16 @@ public class TelaCadastramento extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField34;
     private javax.swing.JTextField jTextField35;
     private javax.swing.JTextField jTextField36;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JTextField loginUsuario;
+    private javax.swing.JButton matricularAluno;
+    private javax.swing.JTextField nomeAlunoM;
     private javax.swing.JTextField nomeUsuario;
+    private javax.swing.JTextField numeroAlunos;
+    private javax.swing.JComboBox<String> periodoM;
+    private javax.swing.JScrollPane scroll;
     private javax.swing.JTextField senhaUsuario;
     private javax.swing.JComboBox<String> tipoUsuario;
+    private javax.swing.JComboBox<String> turmasM;
     // End of variables declaration//GEN-END:variables
 
     public CadastroControl getControlador() {
@@ -1058,4 +1106,6 @@ public class TelaCadastramento extends javax.swing.JFrame {
         return tipoUsuario;
     }
 
+    
 }
+

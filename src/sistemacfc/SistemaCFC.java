@@ -5,6 +5,7 @@
  */
 package sistemacfc;
 
+import sistemacfc.src.control.AulasControl;
 import sistemacfc.src.control.CadastroControl;
 
 /**
@@ -17,8 +18,7 @@ public class SistemaCFC {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CadastroControl ctrl = new CadastroControl();
-        ctrl.inicia();
+        
     }
     
 }

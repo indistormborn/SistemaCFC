@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import sistemacfc.src.model.Administrador;
 import sistemacfc.src.model.Instrutor;
 import sistemacfc.src.model.Professor;
 import sistemacfc.src.model.Usuario;
@@ -42,6 +43,36 @@ public class UsuarioDAO {
         }
 
     }
+    
+    public Usuario verificaLoginAndSenha(String login, String senha) throws ClassNotFoundException, SQLException{
+        Usuario user = null;
+        Connection conn = conexao.novaConexao();
+        String query = "SELECT * FROM usuario WHERE login='"+login+"' AND senha='"+senha+"'";
+        PreparedStatement stm = conn.prepareStatement(query);
+        ResultSet set = stm.executeQuery();
+        if(set.next()){
+            if (set.getString("tipo").equals("ins")) {
+                    user = new Instrutor();
+                    user.setNome(set.getString("nome"));
+                    user.setCpf(set.getString("cpf"));
+                    user.setLogin(set.getString("login"));
+                    user.setSenha(set.getString("senha"));
+                } else if (set.getString("tipo").equals("pro")) {
+                    user = new Professor();
+                    user.setNome(set.getString("nome"));
+                    user.setCpf(set.getString("cpf"));
+                    user.setLogin(set.getString("login"));
+                    user.setSenha(set.getString("senha"));
+                }else{
+                    user = new Administrador();
+                    user.setNome(set.getString("nome"));
+                    user.setCpf(set.getString("cpf"));
+                    user.setLogin(set.getString("login"));
+                    user.setSenha(set.getString("senha"));
+                }
+        }
+        return user;
+    }
 
     public Usuario selectByLogin(String log) throws SQLException, ClassNotFoundException {
         Usuario user = null;
@@ -59,6 +90,12 @@ public class UsuarioDAO {
                     user.setSenha(set.getString("senha"));
                 } else if (set.getString("tipo").equals("pro")) {
                     user = new Professor();
+                    user.setNome(set.getString("nome"));
+                    user.setCpf(set.getString("cpf"));
+                    user.setLogin(set.getString("login"));
+                    user.setSenha(set.getString("senha"));
+                }else{
+                    user = new Administrador();
                     user.setNome(set.getString("nome"));
                     user.setCpf(set.getString("cpf"));
                     user.setLogin(set.getString("login"));

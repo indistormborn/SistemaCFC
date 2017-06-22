@@ -1,6 +1,7 @@
 package sistemacfc.src.model;
 
 
+import java.util.Collection;
 import sistemacfc.src.model.Veiculo;
 
 
@@ -13,7 +14,7 @@ import sistemacfc.src.model.Veiculo;
 public class Instrutor extends Usuario {
 
 	public Veiculo veiculo;
-	//public Collection<Praticas> m_Praticas;
+	public Collection<Praticas> Praticas;
 
 	public Instrutor(){
 

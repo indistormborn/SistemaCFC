@@ -1,15 +1,24 @@
+
 package sistemacfc.src.model;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- *
  * @author Indiara
+ * @version 1.0
+ * @created 21-jun-2017 01:52:47
  */
-class Veiculo {
-    
-}
+public class Veiculo {
+
+	protected int ano;
+	protected boolean disponibilidade;
+	protected String placa;
+	protected String tipo;
+
+	public Veiculo(){
+
+	}
+
+	public void finalize() throws Throwable {
+
+	}
+}//end Veiculo

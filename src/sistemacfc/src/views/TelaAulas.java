@@ -5,16 +5,18 @@
  */
 package sistemacfc.src.views;
 
+import sistemacfc.src.control.AulasControl;
+
 /**
  *
  * @author Indiara
  */
 public class TelaAulas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaAulas
-     */
-    public TelaAulas() {
+    private AulasControl controlador;
+    
+    public TelaAulas(AulasControl ctrl) {
+        this.controlador = ctrl;
         initComponents();
     }
 
@@ -50,7 +52,7 @@ public class TelaAulas extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tabelaAulas = new javax.swing.JTable();
         jLabel30 = new javax.swing.JLabel();
         jTextField18 = new javax.swing.JTextField();
         jButton8 = new javax.swing.JButton();
@@ -201,12 +203,17 @@ public class TelaAulas extends javax.swing.JFrame {
 
         jComboBox5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "Teórica", "Prática" }));
+        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox5ActionPerformed(evt);
+            }
+        });
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel24.setText("Selecione uma aula");
 
+        jTextField13.setEditable(false);
         jTextField13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField13.setText("A");
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel25.setText("Curso");
@@ -214,28 +221,15 @@ public class TelaAulas extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         jLabel29.setText("<html>Tabela com as datas de aulas da turma selecionada, por favor, defina uma aula para cada dia");
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaAulas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"25/05/17", "P009"},
-                {"26/05/17", null},
-                {"27/05/17", null},
-                {"28/05/17", "P006"},
-                {"29/05/17", null},
-                {"30/05/17", null}
+
             },
             new String [] {
-                "Data", "Codigo da aula"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
-        jScrollPane5.setViewportView(jTable4);
+        ));
+        jScrollPane5.setViewportView(tabelaAulas);
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel30.setText("Data selecionada");
@@ -308,18 +302,20 @@ public class TelaAulas extends javax.swing.JFrame {
 
         jTextField2.setEditable(false);
         jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField2.setText("Vespertino");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         jTextField16.setEditable(false);
         jTextField16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField16.setText("data");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Data de inicio");
 
         jTextField17.setEditable(false);
         jTextField17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField17.setText("data");
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel28.setText("Data de termino");
@@ -763,6 +759,14 @@ public class TelaAulas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -829,7 +833,6 @@ public class TelaAulas extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
@@ -846,5 +849,10 @@ public class TelaAulas extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable tabelaAulas;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JTable getTabelaAulas(){
+        return tabelaAulas;
+    }
 }
