@@ -11,7 +11,7 @@ public class Prova {
 
 	protected int codigo;
 	protected Date data;
-	protected boolean resultado;
+        protected String hora;
 	protected String tipo;
 
 	public Prova(){

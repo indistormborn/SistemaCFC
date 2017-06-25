@@ -40,23 +40,22 @@ public class CadastroControl {
     private AlunoDAO alunoDAO;
     private TurmaDAO turmaDAO;
     private TelaCadastramento telaCadastro;
+    private PrincipalControl principal;
     
 
-    public CadastroControl() {
+    public CadastroControl(PrincipalControl prin) {
         
         this.alunoDAO = new AlunoDAO();
         this.turmaDAO=new TurmaDAO();
         this.telaCadastro = new TelaCadastramento(this);
+        this.principal = prin;
         
     }
     
     
 
     /*UC02.07 - MATRICULAR ALUNO*/
-    public String exibirNomeAluno(String cpf) throws ClassNotFoundException, SQLException{
-        return alunoDAO.getAlunoByCPF(cpf).getNome();
-    }
-    
+       
     public DefaultComboBoxModel exibirTurmas(String periodo, String curso) throws ClassNotFoundException, SQLException{
         Collection<Turma> turmas = turmaDAO.getTurmasByCursoAndPeriodo(curso, periodo);
         DefaultComboBoxModel<String> codigos = new DefaultComboBoxModel<>();
@@ -64,6 +63,9 @@ public class CadastroControl {
 
         for(Turma turma : turmas){
             codigos.addElement(turma.getCodigo().toString());
+        }
+        if(codigos.getSize()==1){
+           mensagemErro(telaCadastro,"Não existe nenhuma turma neste periodo pra este curso e/ou neste curso"); 
         }
         return codigos;
     }
@@ -78,62 +80,35 @@ public class CadastroControl {
         return nomes;
     }
     
+    public void matricularAluno(String cpf, String codigo) throws ClassNotFoundException, SQLException{
+        Aluno aluno = alunoDAO.getAlunoByCPF(cpf);
+        Turma turma = turmaDAO.getTurmaByCodigo(Integer.parseInt(codigo));
+        turma.setAlunos(alunoDAO.getAlunosByTurma(Integer.parseInt(codigo)));
+        if(turma.verificarVagasNaturma()){
+           turma.setAlunoToAlunos(aluno);
+           aluno.setTurma(turma);
+           Integer tcodigo = turma.getCodigo();
+           alunoDAO.setTurmaToAluno(cpf,tcodigo);
+           mensagemConfirmacao(telaCadastro,"Aluno matriculado com sucesso!");
+        }else{
+            mensagemErro(telaCadastro, "Impossivel matricular aluno! Turma atingiu o numero maximo de participantes");
+        }
+        
+    }
     
     
-    public void cadastrarUsuario(String nome, String cpf, String login, String senha, String tipo) throws SQLException, ClassNotFoundException {
-        Usuario user;
-        String confirmacao = "Cadastro realizado com sucesso!";
-        if (isCamposPreenchidos(telaCadastro.getCadastroUsuario())) {
-            if (isSenhasIguais()) {
-                if (isLoginDisponivel()) {
-                    if (tipo.equals("Instrutor")) {
-                        user = new Instrutor(nome, cpf, login, senha);
-                        usuarioDAO.insert(user, "ins");
-                        JOptionPane.showMessageDialog(telaCadastro, confirmacao);
-                    } else if (tipo.equals("Professor")) {
-                        user = new Professor(nome, cpf, login, senha);
-                        usuarioDAO.insert(user, "pro");
-                        JOptionPane.showMessageDialog(telaCadastro,confirmacao);
-                    }else if(tipo.equals("Administrador")) {
-                        user = new Professor(nome, cpf, login, senha);
-                        usuarioDAO.insert(user, "adm");
-                        JOptionPane.showMessageDialog(telaCadastro,confirmacao);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(telaCadastro, "Login já cadastrado no sistema");
-                }
-            } else {
-                JOptionPane.showMessageDialog(telaCadastro, "Confirmação de senha inválida!");
-
-            }
-        } else {
-            JOptionPane.showMessageDialog(telaCadastro, "Todos os campos devem ser preenchidos!");
-        }
+    public void mensagemConfirmacao(Component tela, String msg){
+       JOptionPane.showMessageDialog(tela, msg, "CONFIRMACAO", JOptionPane.INFORMATION_MESSAGE);
+    }
+    public void mensagemErro(Component tela, String msg){
+        JOptionPane.showMessageDialog(tela,msg,"ERRO", JOptionPane.ERROR);
+    }
+    
+    public PrincipalControl getControlePrincipal(){
+        return principal;
     }
 
-   
-
-//    CADASTRO DE USUÁRIO
-    private boolean isSenhasIguais() {
-        if (!telaCadastro.getSenhaUsuario().getText().equals(telaCadastro.getConfirmarSenha().getText())) {
-            return false;
-        }
-        return true;
-    }
-//    private boolean isLoginDisponivel() throws SQLException, ClassNotFoundException {
-//        String loginVerificar = telaCadastro.getLoginUsuario().getText();
-//        Usuario user = usuarioDAO.selectByLogin(loginVerificar);
-//        if (user==null) {
-//            return true;
-//        } else if (user.getLogin().equals(loginVerificar)) {
-//            return false;
-//        }
-//        return true;
-//    }
-
-    public void inicia() {
-        telaCadastro.setVisible(true);
-    }
+    
     
     
 

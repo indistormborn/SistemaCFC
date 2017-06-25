@@ -11,7 +11,5 @@ public class Teoricas extends Aulas {
 
 	}
 
-	public void finalize() throws Throwable {
-		super.finalize();
-	}
+	
 }//end Teoricas

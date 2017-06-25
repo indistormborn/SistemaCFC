@@ -77,5 +77,10 @@ public class TurmaDAO {
         return turma;
     }
     
+    public Turma getTurmaByCodigoCompletasso(Integer codigo){
+        return new Turma();
+        //eh pra retornar ate plano de enisno nesse
+    }
+    
     
 }

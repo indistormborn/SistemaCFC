@@ -12,10 +12,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import sistemacfc.src.model.Aluno;
+import sistemacfc.src.model.Historico;
 
 /**
  *
  * @author Indiara
+ * CONTROLA AS TABELAS ALUNOS, HISTORICOAULAS, HISTORICOPROVAS
  */
 public class AlunoDAO {
     
@@ -39,8 +41,8 @@ public class AlunoDAO {
         return aluno;
     }
     
-    public Collection getAlunosByTurma(Integer codigo) throws SQLException, ClassNotFoundException{
-        Collection alunos = new ArrayList<>();
+    public ArrayList<Aluno> getAlunosByTurma(Integer codigo) throws SQLException, ClassNotFoundException{
+        ArrayList<Aluno> alunos = new ArrayList<>();
         Connection conn = conexao.novaConexao();
         String query = "SELECT * FROM alunos WHERE turma='"+codigo+"'";
         PreparedStatement stm = conn.prepareStatement(query);
@@ -52,4 +54,23 @@ public class AlunoDAO {
         }
         return alunos;
     }
+    
+    public void setTurmaToAluno(String cpf, Integer turma){
+        
+    }
+    
+    public ArrayList<Historico> getHistoricoAulasPraticas(String aluno){
+        return new ArrayList<>();
+    }
+    
+    public ArrayList<Historico> getHistoricoAulasTeoricas(String aluno){
+        return new ArrayList<>();
+    }
+    
+    public ArrayList<Historico> getHistoricoProvas(String aluno){
+        return new ArrayList<>();
+    }
+    
+    
+    
 }

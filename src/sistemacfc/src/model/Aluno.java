@@ -39,6 +39,42 @@ public class Aluno {
         this.telefone = telefone;
     }
 
+    /*25 hroas aula sendo cada aula pratica considerada 1h temos 25 aulas logo limite max eh 25*/
+    public boolean verificarPraticasAgendadas(){
+        return true;
+    }
+    
+    public ArrayList<Aulas> getTeoricasFaltantes(){
+        return new ArrayList<>();
+    }
+    
+    public ArrayList<Aulas> getPraticasFaltantes(){
+        return new ArrayList<>();
+    }
+    
+    public boolean verificarFrequenciaTeorica(){
+        return true;
+    }
+    
+    public boolean verificarFrequenciaPratica(){
+        return true;
+    }
+    
+    public boolean verificarDesempenhoProvaTeorica(){
+        return true;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public String getCPF() {
         return CPF;
     }

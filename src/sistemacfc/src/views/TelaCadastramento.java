@@ -909,13 +909,13 @@ public class TelaCadastramento extends javax.swing.JFrame {
             String login = loginUsuario.getText();
             String senha = senhaUsuario.getText();
             String tipo = tipoUsuario.getSelectedItem().toString();
-            try {
-                controlador.cadastrarUsuario(nome, cpf, login, senha, tipo);
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaCadastramento.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(TelaCadastramento.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                controlador.cadastrarUsuario(nome, cpf, login, senha, tipo);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(TelaCadastramento.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(TelaCadastramento.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
     }//GEN-LAST:event_cadastrarUActionPerformed
 
@@ -940,7 +940,7 @@ public class TelaCadastramento extends javax.swing.JFrame {
     private void cpfAlunoMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfAlunoMKeyPressed
        if(evt.getKeyCode()== evt.VK_ENTER){
            try {
-               nomeAlunoM.setText(controlador.exibirNomeAluno(cpfAlunoM.getText()));
+               nomeAlunoM.setText(controlador.getControlePrincipal().exibirNomeAluno(cpfAlunoM.getText()));
            } catch (ClassNotFoundException ex) {
                Logger.getLogger(TelaCadastramento.class.getName()).log(Level.SEVERE, null, ex);
            } catch (SQLException ex) {

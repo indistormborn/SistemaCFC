@@ -107,4 +107,8 @@ public class UsuarioDAO {
         }
         return user;
     }
+    
+    public Instrutor getInstrutorByVeiculo(String placa){
+        return new Instrutor();
+    }
 }
