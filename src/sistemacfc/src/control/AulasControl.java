@@ -102,11 +102,11 @@ public class AulasControl {
 
     //FIM DAS INTERAÇÕES DE TELA
     /*CASO DE USO - DEFINIR PLANO DE ENSINO*/
- /*as datas sao exibidas em tela para melhor entendimento do professor
-        mas cada data representa um numero de 0-7 representadno os 8 dias de aula do aluno
-        (45 horas aula sendo 5 por dia, como definido nas RNs)
-        o indexData representa a ordem que a aula sera adicionada no cronograma, 
-        ou seja, na data q a aula sera ministrada*/
+    /*as datas sao exibidas em tela para melhor entendimento do professor
+      mas cada data representa um numero de 0-7 representadno os 8 dias de aula do aluno
+      (45 horas aula sendo 5 por dia, como definido nas RNs)
+      o indexData representa a ordem que a aula sera adicionada no cronograma, 
+      ou seja, na data q a aula sera ministrada*/
     
     public void adicionarAulaPlanoDeEnsino(int indexData, String codigoAula, String codigoTurma) throws ClassNotFoundException, SQLException {
         Integer aulaCod = Integer.parseInt(codigoAula);
@@ -116,7 +116,7 @@ public class AulasControl {
         HashMap<Integer, Teoricas> plano = turma.getPlanoDeEnsino();
         
         if (!plano.containsValue(aula)) {
-            turma.setAulaToPlanoDeEnsino(aulaCod,aula);
+            turma.setAulaToPlanoDeEnsino(indexData,aula);
             aulasDAO.setAulaToPlanoDeEnsinoDaTurma(Integer.parseInt(codigoAula),turma.getCodigo(),indexData);
             atualizaTabela();
 

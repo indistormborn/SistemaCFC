@@ -42,6 +42,15 @@ public class AulaDAO {
     public void setAulaToPlanoDeEnsinoDaTurma(int parseInt, Integer codigo, int indexData) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+	public void setAlunoToPratica(String aluno) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void updateStatusReservado(int aula, int status){
+		
+	}
     
     
 }

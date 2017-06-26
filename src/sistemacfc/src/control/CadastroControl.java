@@ -80,11 +80,13 @@ public class CadastroControl {
         return nomes;
     }
     
-    public void matricularAluno(String cpf, String codigo) throws ClassNotFoundException, SQLException{
+    public void efetuarMatricula(String cpf, String codigo) throws ClassNotFoundException, SQLException{
         Aluno aluno = alunoDAO.getAlunoByCPF(cpf);
         Turma turma = turmaDAO.getTurmaByCodigo(Integer.parseInt(codigo));
-        turma.setAlunos(alunoDAO.getAlunosByTurma(Integer.parseInt(codigo)));
-        if(turma.verificarVagasNaturma()){
+        ArrayList<Aluno> alunos = alunoDAO.getAlunosByTurma(Integer.parseInt(codigo));
+        turma.setAlunos(alunos);
+        boolean existemVagas = turma.verificarVagasNaturma();
+        if(existemVagas){
            turma.setAlunoToAlunos(aluno);
            aluno.setTurma(turma);
            Integer tcodigo = turma.getCodigo();

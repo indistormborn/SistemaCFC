@@ -5,12 +5,18 @@
  */
 package sistemacfc.src.control;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import sistemacfc.src.dao.AlunoDAO;
+import sistemacfc.src.dao.AulaDAO;
+import sistemacfc.src.model.Aluno;
 import sistemacfc.src.model.Aulas;
+import sistemacfc.src.model.Historico;
 import sistemacfc.src.model.Teoricas;
 import sistemacfc.src.views.TelaAgendamento;
 
@@ -23,11 +29,15 @@ public class AgendaControl {
     private PrincipalControl principal;
     private TelaAgendamento telaAgenda;
     private Aulas aulaFaltante;
+    private AlunoDAO alunoDAO;
+    private AulaDAO aulaDAO;
     
     public AgendaControl(PrincipalControl ctrl){
         this.principal=ctrl;
         this.telaAgenda = new TelaAgendamento(this);
         this.aulaFaltante=new Teoricas();
+        this.alunoDAO = new AlunoDAO();
+        this.aulaDAO = new AulaDAO();
     }
     
     /*AGENDAMENTO DE AULAS PRATICAS*/
@@ -78,8 +88,26 @@ public class AgendaControl {
     }
 }
     
-    public void agendarAulaPratica(String aluno,String instrutor, Collection aulas){
-        
+    public void agendarAulaPratica(String aluno, Collection aulas) throws ClassNotFoundException, SQLException{
+    	ArrayList<Historico> historico = alunoDAO.getHistoricoAulasPraticas(aluno);
+    	Aluno alunoObj = alunoDAO.getAlunoByCPF(aluno);
+    	int historicoSize = historico.size();
+        if(historicoSize < 24){
+        	
+        	alunoObj.setAulasPraticas(aulas);
+        	
+        	aulaDAO.setAlunoToPratica(aluno);
+        	
+        	for(cada aula){
+        		aulaDAO.updateStatusReservado(aula, status);
+        	}
+        	
+        	mensagem de confirmacao
+        }
+        else{
+        	
+        	mensagem de erro que vai receber uma string
+        }
     }
     
     //FIM DA TELA DE AGENDAMENTO DE PRATICAS
