@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 import sistemacfc.src.dao.AulaDAO;
 import sistemacfc.src.dao.TurmaDAO;
@@ -100,6 +101,38 @@ public class AulasControl {
         return model;
     }
 
+    public String exibirCodigoAula(String codigoTurma){
+        return null;
+    }
+    
+    public DefaultListModel exibeAlunosDaTurma(String turma){
+        return null;
+    }
+    
+    public Collection getAlunosSelecionadosFromTela(){
+        return null;
+    }
+    
+    public void marcarPresencaPraTodosAlunos(){
+        
+    }
+    public void marcarPesencaPraAlgunsALunos(){
+        
+    }
+    
+    //SEUS ALUNOS
+    public DefaultTableModel exibeAulasAluno(String cpf){
+        return null;
+    }
+    
+    public void registrarFrequenciaAlunoEmUmaAula(String codigoAula){
+        
+    }
+    
+    public void registrarFrequenciaAlunoEmTodas(Collection aulas){
+        
+    }
+    
     //FIM DAS INTERAÇÕES DE TELA
     /*CASO DE USO - DEFINIR PLANO DE ENSINO*/
     /*as datas sao exibidas em tela para melhor entendimento do professor

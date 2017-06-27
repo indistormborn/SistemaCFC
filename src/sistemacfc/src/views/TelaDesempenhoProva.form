@@ -36,24 +36,24 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jTextField36" min="-2" pref="118" max="-2" attributes="0"/>
+                              <Component id="cpf" min="-2" pref="118" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jTextField37" min="-2" pref="277" max="-2" attributes="0"/>
+                              <Component id="nome" min="-2" pref="277" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jTextField38" min="-2" pref="63" max="-2" attributes="0"/>
+                              <Component id="prova" min="-2" pref="63" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="reprovado" min="-2" max="-2" attributes="0"/>
+                                  <Component id="aprovado" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -75,25 +75,25 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel41" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField36" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="cpf" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField37" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="nome" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel43" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField38" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="prova" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="aprovado" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel44" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="reprovado" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jButton7" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -118,7 +118,7 @@
         <Property name="text" type="java.lang.String" value="CPF Aluno"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField36">
+    <Component class="javax.swing.JTextField" name="cpf">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="0"/>
@@ -133,7 +133,7 @@
         <Property name="text" type="java.lang.String" value="Nome do aluno"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField37">
+    <Component class="javax.swing.JTextField" name="nome">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -150,7 +150,7 @@
         <Property name="text" type="java.lang.String" value="Prova realizada"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField38">
+    <Component class="javax.swing.JTextField" name="prova">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -167,7 +167,7 @@
         <Property name="text" type="java.lang.String" value="Situa&#xe7;&#xe3;o"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+    <Component class="javax.swing.JRadioButton" name="aprovado">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="12" style="1"/>
@@ -175,7 +175,7 @@
         <Property name="text" type="java.lang.String" value="Aprovado"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+    <Component class="javax.swing.JRadioButton" name="reprovado">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="12" style="1"/>

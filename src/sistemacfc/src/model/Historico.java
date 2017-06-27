@@ -20,6 +20,10 @@ public class Historico {
 
 	}
 
+        public Aulas getAula(){
+            return null;
+        }
+        
 	public void finalize() throws Throwable {
 
 	}

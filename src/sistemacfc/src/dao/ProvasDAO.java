@@ -19,7 +19,7 @@ public class ProvasDAO {
         this.conexao=new Conexao();
     }
     
-    public ArrayList<Prova> getProvasByTipo(){
+    public ArrayList<Prova> getProvasByTipo(String tipo){
         return null;
     }
 }

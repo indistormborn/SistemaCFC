@@ -7,7 +7,7 @@ package sistemacfc.src.model;
  */
 public abstract class Aulas {
 
-	protected int codigo;
+	protected Integer codigo;
 	protected String materia;
 	public Curso m_Curso;
 
@@ -18,4 +18,8 @@ public abstract class Aulas {
 	public void finalize() throws Throwable {
 
 	}
+
+    public Integer getCodigo() {
+        return codigo;
+    }
 }//end Aulas

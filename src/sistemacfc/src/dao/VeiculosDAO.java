@@ -19,8 +19,16 @@ public class VeiculosDAO {
         return new Veiculo();
     }
     
+    public String getCursoByVeiculo(String placa){
+        return null;
+    }
+    
     public ArrayList<Veiculo> getVeiculosByCurso(String curso){
         return new ArrayList<>();
+    }
+    
+    public Veiculo getVeiculoByInstrutor(String instrutor){
+        return null;
     }
     
     public ArrayList<Veiculo> getVeiculosDisponiveis(){

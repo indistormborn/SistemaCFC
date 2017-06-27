@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import sistemacfc.src.model.Aluno;
 import sistemacfc.src.model.Historico;
+import sistemacfc.src.model.Prova;
 
 /**
  *
@@ -71,6 +72,12 @@ public class AlunoDAO {
         return new ArrayList<>();
     }
     
-    
+    public 
+
+    public Prova getProvaAprovadaByTipo(String aluno, String tipo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
     
 }

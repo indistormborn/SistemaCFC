@@ -38,6 +38,10 @@ public class AulaDAO {
     public Aulas getAulaByCodigo(String codigoAula) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public ArrayList<Aulas> getAulasByAluno(String cpfAluno){
+        return null;
+    }
 
     public void setAulaToPlanoDeEnsinoDaTurma(int parseInt, Integer codigo, int indexData) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

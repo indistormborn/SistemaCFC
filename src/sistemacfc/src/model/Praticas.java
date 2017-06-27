@@ -13,12 +13,17 @@ public class Praticas extends Aulas {
 	protected int horario;
 	protected boolean reservado;
 	public Aluno m_Aluno;
+        public Instrutor instrutor;
 
         
         
 	public Praticas(){
 
 	}
+
+    public Instrutor getInstrutor() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 	
 }//end Praticas

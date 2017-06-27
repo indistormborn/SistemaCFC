@@ -5,6 +5,8 @@
  */
 package sistemacfc.src.views;
 
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 import sistemacfc.src.control.AgendaControl;
 
 /**
@@ -20,6 +22,12 @@ public class TelaAgendamento extends javax.swing.JFrame {
         initComponents();
     }
 
+    public JTextField getInstrutorCarro() {
+        return instrutorCarro;
+    }
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,12 +57,12 @@ public class TelaAgendamento extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        instrutorCarro = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        tipoCarro = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        placaCarro = new javax.swing.JComboBox<>();
         jTextField9 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -192,12 +200,12 @@ public class TelaAgendamento extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Instrutor");
 
-        jTextField6.setEditable(false);
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField6.setText("Fernadno Garibay");
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        instrutorCarro.setEditable(false);
+        instrutorCarro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        instrutorCarro.setText("Fernadno Garibay");
+        instrutorCarro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                instrutorCarroActionPerformed(evt);
             }
         });
 
@@ -207,14 +215,14 @@ public class TelaAgendamento extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Tipo do Carro");
 
-        jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "A", "B", "C", "D", "E", "Reciclagem" }));
+        tipoCarro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tipoCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "A", "B", "C", "D", "E", "Reciclagem" }));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Placa");
 
-        jComboBox4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "Teórica", "Prática" }));
+        placaCarro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        placaCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "Teórica", "Prática" }));
 
         jTextField9.setEditable(false);
         jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -245,12 +253,12 @@ public class TelaAgendamento extends javax.swing.JFrame {
                     .addGroup(praticasLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(praticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(instrutorCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addGroup(praticasLayout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(tipoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(praticasLayout.createSequentialGroup()
                         .addGap(106, 106, 106)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -258,7 +266,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(placaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(praticasLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -287,15 +295,15 @@ public class TelaAgendamento extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addGroup(praticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tipoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(praticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(placaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(instrutorCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
@@ -431,9 +439,9 @@ public class TelaAgendamento extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void instrutorCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instrutorCarroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_instrutorCarroActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
@@ -442,15 +450,29 @@ public class TelaAgendamento extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+
+    public JTextField getInstrutor() {
+        return instrutorCarro;
+    }
+
+    public JComboBox<String> getPlacaCarro() {
+        return placaCarro;
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public JComboBox<String> getTipoCarro() {
+        return tipoCarro;
+    }
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField instrutorCarro;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -478,12 +500,13 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JComboBox<String> placaCarro;
     private javax.swing.JPanel praticas;
     private javax.swing.JPanel provas;
     private javax.swing.JPanel teoricas;
+    private javax.swing.JComboBox<String> tipoCarro;
     // End of variables declaration//GEN-END:variables
 }

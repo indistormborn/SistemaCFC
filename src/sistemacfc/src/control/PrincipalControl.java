@@ -105,6 +105,22 @@ public class PrincipalControl {
         return true;
     }
     
+    
+    //DESEMPENHO EM PROVA
+    public String exibeTipoProvaRealizada(String cpfAluno){
+        return null;
+    }
+    
+    public String getResultadoFromTela(){
+        return null;
+    }
+    
+    public void definirDesempenhoEmProva(){
+        
+    }
+    
+    
+    
     public String exibirNomeAluno(String cpf) throws ClassNotFoundException, SQLException{
         return alunoDAO.getAlunoByCPF(cpf).getNome();
     }
