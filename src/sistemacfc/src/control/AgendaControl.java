@@ -86,16 +86,16 @@ public class AgendaControl {
             //pega o instrutor responsavel por aquela aula
             String instrutor = pratica.getInstrutor().getNome();
             //pega a placa do carro
-            String placaCarro = veiculoDAO.getVeiculoByInstrutor(instrutor).getPlaca();
+//            String placaCarro = veiculoDAO.getVeiculoByInstrutor(instrutor).getPlaca();
             //pega o curso que eh daquele carro
-            String curso = veiculoDAO.getCursoByVeiculo(placaCarro);
+            //String curso = veiculoDAO.getCursoByVeiculo(placaCarro);
             
             //SETANDO DADOS NA TELA
-            telaAgenda.getInstrutorCarro().setText(instrutor);
-            DefaultComboBoxModel cursoModel = exibeUmCurso(curso);
-            telaAgenda.getTipoCarro().setModel(cursoModel);
-            DefaultComboBoxModel carroModel = exibeUmCarro(placaCarro);
-            telaAgenda.getTipoCarro().setModel(carroModel);
+            //telaAgenda.getInstrutorCarro().setText(instrutor);
+            //DefaultComboBoxModel cursoModel = exibeUmCurso(curso);
+            //telaAgenda.getTipoCarro().setModel(cursoModel);
+            //DefaultComboBoxModel carroModel = exibeUmCarro(placaCarro);
+            //telaAgenda.getTipoCarro().setModel(carroModel);
             
         } else {
            String tipoCurso = telaAgenda.getTipoCarro().getSelectedItem().toString();
@@ -137,29 +137,29 @@ public class AgendaControl {
         }
     }
 
-    public void agendarAulaPratica(String aluno, Collection aulas) throws ClassNotFoundException, SQLException {
-        Aluno alunoObj = alunoDAO.getAlunoByCPF(aluno);
-        ArrayList<Historico> historico = alunoDAO.getHistoricoAulasPraticas(aluno);
-        int historicoSize = historico.size();
-        ArrayList<Aulas> aulasReservadas = aulaDAO.getAulasByAluno(aluno);
-        int reservasSize = aulasReservadas.size();
-        int totalAulas = historicoSize + reservasSize;
-        if (totalAulas < 24) {
-
-            alunoObj.setAulasPraticas(aulas);
-
-            aulaDAO.setAlunoToPratica(aluno);
-
-            for (cada aula ) {
-                aulaDAO.updateStatusReservado(aula, status);
-            }
-
-            mensagem de confirmacao
-        } else {
-
-            mensagem de erro que vai receber uma string
-        }
-    }
+//    public void agendarAulaPratica(String aluno, Collection aulas) throws ClassNotFoundException, SQLException {
+//        Aluno alunoObj = alunoDAO.getAlunoByCPF(aluno);
+//        ArrayList<Historico> historico = alunoDAO.getHistoricoAulasPraticas(aluno);
+//        int historicoSize = historico.size();
+//        ArrayList<Aulas> aulasReservadas = aulaDAO.getAulasByAluno(aluno);
+//        int reservasSize = aulasReservadas.size();
+//        int totalAulas = historicoSize + reservasSize;
+//        if (totalAulas < 24) {
+//
+//            alunoObj.setAulasPraticas(aulas);
+//
+//            aulaDAO.setAlunoToPratica(aluno);
+//
+//            for (cada aula ) {
+//                aulaDAO.updateStatusReservado(aula, status);
+//            }
+//
+//            mensagem de confirmacao
+//        } else {
+//
+//            mensagem de erro que vai receber uma string
+//        }
+//    }
 
     //FIM DA TELA DE AGENDAMENTO DE PRATICAS
     //AGENDAMENTO DE AULAS TEORICAS

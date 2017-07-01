@@ -41,7 +41,7 @@ public class Aluno {
 
     /*25 hroas aula sendo cada aula pratica considerada 1h temos 25 aulas logo limite max eh 25*/
     public boolean verificarPraticasAgendadas(){
-        for(Aluno aluno : alunos)
+    	//for(Aluno aluno : alunos)
         return true;
     }
     

@@ -72,8 +72,6 @@ public class AlunoDAO {
         return new ArrayList<>();
     }
     
-    public 
-
     public Prova getProvaAprovadaByTipo(String aluno, String tipo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
