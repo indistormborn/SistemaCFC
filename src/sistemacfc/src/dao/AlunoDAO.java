@@ -76,6 +76,15 @@ public class AlunoDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public void setProvaToAluno(String prova, String aluno) throws ClassNotFoundException, SQLException{
+        Connection conn = conexao.novaConexao();
+        String sql = "INSERT INTO historicoprovas (prova, aluno) VALUES (?, ?)";
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, Integer.parseInt(prova));
+        stm.setString(2, aluno);
+        stm.execute();
+        conn.close();
+    } 
    
     
 }

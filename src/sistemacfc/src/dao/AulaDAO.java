@@ -31,8 +31,8 @@ public class AulaDAO {
         return new HashMap<Integer,Aulas>();
     }
     
-    public Aulas getPraticasByInstrutor(String instrutorLogin){
-        return new Praticas();
+    public ArrayList<Praticas> getPraticasByInstrutor(String instrutorLogin){
+        return null;
     }
 
     public Aulas getAulaByCodigo(String codigoAula) {
@@ -47,8 +47,7 @@ public class AulaDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-	public void setAlunoToPratica(String aluno) {
-		// TODO Auto-generated method stub
+	public void setAlunoToPratica(String pratica,String aluno) {
 		
 	}
 	

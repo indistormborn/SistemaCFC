@@ -5,7 +5,14 @@
  */
 package sistemacfc.src.views;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import sistemacfc.src.control.AgendaControl;
 
@@ -16,9 +23,9 @@ import sistemacfc.src.control.AgendaControl;
 public class TelaAgendamento extends javax.swing.JFrame {
 
     private AgendaControl control;
-    
+
     public TelaAgendamento(AgendaControl ctrl) {
-        this.control=ctrl;
+        this.control = ctrl;
         initComponents();
     }
 
@@ -26,8 +33,6 @@ public class TelaAgendamento extends javax.swing.JFrame {
         return instrutorCarro;
     }
 
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,24 +46,24 @@ public class TelaAgendamento extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         provas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelProva = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        tipoProva = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        cpfProva = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        alunoProva = new javax.swing.JTextField();
+        agendarProva = new javax.swing.JButton();
         praticas = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jTextField3 = new javax.swing.JTextField();
+        tablePraticas = new javax.swing.JTable();
+        cpfPratica = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        alunoPratica = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         instrutorCarro = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        agendarPratica = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         tipoCarro = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -87,38 +92,50 @@ public class TelaAgendamento extends javax.swing.JFrame {
 
         provas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelProva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"23/05/2017", "12:00"},
-                {"23/05/2017", "14:00"},
-                {"30/05/2017", "13:00"}
+
             },
             new String [] {
-                "Data", "Horário"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelProva);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Tipo da prova");
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "Teórica", "Prática" }));
+        tipoProva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tipoProva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "Teórica", "Prática" }));
+        tipoProva.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                tipoProvaItemStateChanged(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Aluno");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cpfProva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cpfProva.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cpfProvaKeyPressed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Nome");
 
-        jTextField2.setEditable(false);
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField2.setText("Indiara Camillo Menegat");
+        alunoProva.setEditable(false);
+        alunoProva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Agendar");
+        agendarProva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        agendarProva.setText("Agendar");
+        agendarProva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agendarProvaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout provasLayout = new javax.swing.GroupLayout(provas);
         provas.setLayout(provasLayout);
@@ -132,14 +149,14 @@ public class TelaAgendamento extends javax.swing.JFrame {
                             .addGroup(provasLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tipoProva, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cpfProva, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(alunoProva, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(provasLayout.createSequentialGroup()
                         .addGap(107, 107, 107)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(agendarProva, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                 .addContainerGap())
@@ -152,38 +169,43 @@ public class TelaAgendamento extends javax.swing.JFrame {
                     .addGroup(provasLayout.createSequentialGroup()
                         .addGroup(provasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tipoProva, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cpfProva, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(alunoProva, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(agendarProva, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Provas", null, provas, "Agendamento de provas teóricas e práticas\n");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablePraticas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Data", "Horário"
+
             }
         ));
-        jTable2.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        jScrollPane2.setViewportView(jTable2);
+        tablePraticas.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jScrollPane2.setViewportView(tablePraticas);
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        cpfPratica.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cpfPratica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                cpfPraticaActionPerformed(evt);
+            }
+        });
+        cpfPratica.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cpfPraticaKeyPressed(evt);
             }
         });
 
@@ -193,30 +215,33 @@ public class TelaAgendamento extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Nome");
 
-        jTextField4.setEditable(false);
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField4.setText("Indiara Camillo Menegat");
+        alunoPratica.setEditable(false);
+        alunoPratica.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Instrutor");
 
         instrutorCarro.setEditable(false);
         instrutorCarro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        instrutorCarro.setText("Fernadno Garibay");
         instrutorCarro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 instrutorCarroActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton2.setText("Agendar");
+        agendarPratica.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        agendarPratica.setText("Agendar");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Tipo do Carro");
 
         tipoCarro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tipoCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<selecionar>", "A", "B", "C", "D", "E", "Reciclagem" }));
+        tipoCarro.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                tipoCarroItemStateChanged(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Placa");
@@ -244,12 +269,12 @@ public class TelaAgendamento extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addGroup(praticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, praticasLayout.createSequentialGroup()
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cpfPratica, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel15)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(alunoPratica, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(praticasLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(praticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,7 +286,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
                                 .addComponent(tipoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(praticasLayout.createSequentialGroup()
                         .addGap(106, 106, 106)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(agendarPratica, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(praticasLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel11)
@@ -283,13 +308,13 @@ public class TelaAgendamento extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(praticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cpfPratica, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(alunoPratica, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
@@ -305,7 +330,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(instrutorCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(agendarPratica, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -443,14 +468,73 @@ public class TelaAgendamento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_instrutorCarroActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void cpfPraticaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfPraticaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_cpfPraticaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void tipoProvaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoProvaItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            try {
+                String tipo = tipoProva.getSelectedItem().toString();
+                tabelProva.setModel(control.exibirProvas(tipo));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_tipoProvaItemStateChanged
 
+    private void cpfProvaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfProvaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                alunoProva.setText(control.verificarCPF(cpfProva.getText()));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_cpfProvaKeyPressed
+
+    private void agendarProvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agendarProvaActionPerformed
+        if (evt.getActionCommand().equals(agendarProva.getActionCommand())) {
+            int reply = JOptionPane.showConfirmDialog(this, "Deseja mesmo agendar essa data para o aluno?", "Agendamento", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                String cpf = cpfProva.getText();
+                String data = tabelProva.getValueAt(tabelProva.getSelectedRow(), 0).toString();
+                try {
+                    control.agendarProva(cpf, data);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_agendarProvaActionPerformed
+
+    private void cpfPraticaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfPraticaKeyPressed
+       if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+           String cpf = cpfPratica.getText();
+           try {
+               alunoPratica.setText(control.getPrincipal().exibirNomeAluno(cpf));
+           } catch (ClassNotFoundException ex) {
+               Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (SQLException ex) {
+               Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+           }
+       }
+    }//GEN-LAST:event_cpfPraticaKeyPressed
+
+    private void tipoCarroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoCarroItemStateChanged
+        if(evt.getStateChange()==ItemEvent.SELECTED){
+           String cpf = cpfPratica.getText();
+           placaCarro.setModel((DefaultComboBoxModel) control.exibirInfosTela(cpf));
+         }
+    }//GEN-LAST:event_tipoCarroItemStateChanged
+
+    
     public JTextField getInstrutor() {
         return instrutorCarro;
     }
@@ -459,20 +543,24 @@ public class TelaAgendamento extends javax.swing.JFrame {
         return placaCarro;
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public JComboBox<String> getTipoCarro() {
+       public JComboBox<String> getTipoCarro() {
         return tipoCarro;
     }
-  
+    
+       public javax.swing.JTable getTableProvas(){
+           return tabelProva;
+       }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton agendarPratica;
+    private javax.swing.JButton agendarProva;
+    private javax.swing.JTextField alunoPratica;
+    private javax.swing.JTextField alunoProva;
+    private javax.swing.JTextField cpfPratica;
+    private javax.swing.JTextField cpfProva;
     private javax.swing.JTextField instrutorCarro;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -492,13 +580,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
@@ -506,7 +588,10 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> placaCarro;
     private javax.swing.JPanel praticas;
     private javax.swing.JPanel provas;
+    private javax.swing.JTable tabelProva;
+    private javax.swing.JTable tablePraticas;
     private javax.swing.JPanel teoricas;
     private javax.swing.JComboBox<String> tipoCarro;
+    private javax.swing.JComboBox<String> tipoProva;
     // End of variables declaration//GEN-END:variables
 }

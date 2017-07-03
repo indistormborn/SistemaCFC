@@ -144,7 +144,7 @@ public class Aluno {
         return aulasPraticas;
     }
 
-    public void setAulasPraticas(Collection<Praticas> aulasPraticas) {
+    public void setAulasPraticas(ArrayList<Praticas> aulasPraticas) {
         this.aulasPraticas = aulasPraticas;
     }
         

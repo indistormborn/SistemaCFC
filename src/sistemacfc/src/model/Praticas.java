@@ -21,9 +21,47 @@ public class Praticas extends Aulas {
 
 	}
 
-    public Instrutor getInstrutor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Date getData() {
+        return data;
     }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public int getHorario() {
+        return horario;
+    }
+
+    public void setHorario(int horario) {
+        this.horario = horario;
+    }
+
+    public boolean isReservado() {
+        return reservado;
+    }
+
+    public void setReservado(boolean reservado) {
+        this.reservado = reservado;
+    }
+
+    public Aluno getM_Aluno() {
+        return m_Aluno;
+    }
+
+    public void setM_Aluno(Aluno m_Aluno) {
+        this.m_Aluno = m_Aluno;
+    }
+
+    public Instrutor getInstrutor() {
+        return instrutor;
+    }
+
+    public void setInstrutor(Instrutor instrutor) {
+        this.instrutor = instrutor;
+    }
+
+   
 
 	
 }//end Praticas

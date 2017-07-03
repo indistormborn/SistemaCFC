@@ -19,7 +19,7 @@ public class SistemaCFC {
      */
     public static void main(String[] args) {
        PrincipalControl control = new PrincipalControl();
-       control.getAulas().getTelaAula().setVisible(true);
+       control.getAgenda().getTelaAgenda().setVisible(true);
     }
     
 }

@@ -26,6 +26,7 @@ import sistemacfc.src.model.Praticas;
 import sistemacfc.src.model.Prova;
 import sistemacfc.src.model.Teoricas;
 import sistemacfc.src.model.Usuario;
+import sistemacfc.src.model.Veiculo;
 import sistemacfc.src.views.TelaAgendamento;
 
 /**
@@ -52,28 +53,55 @@ public class AgendaControl {
         this.provasDAO = new ProvasDAO();
     }
 
+    public PrincipalControl getPrincipal(){
+        return principal;
+    }
+    
     /*AGENDAMENTO DE AULAS PRATICAS*/
     public DefaultTableModel exibeAulasTable(String instrutor) {
-        return new DefaultTableModel();
+        ArrayList<Praticas> aulas = aulaDAO.getPraticasByInstrutor(instrutor);
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Codigo");
+        model.addColumn("Data");
+        model.addColumn("Horario");
+        
+        for(Praticas aula : aulas){
+            Integer c = aula.getCodigo();
+            String d = aula.getData().toString();
+            String h = String.valueOf(aula.getHorario());
+            model.addRow(new Object[]{c,d,h});
+        }
+        
+        return model;
     }
 
     public DefaultComboBoxModel exibeUmCurso(String placaVeiculo) {
-        return null;
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        String curso = veiculoDAO.getCursoByVeiculo(placaVeiculo);
+        model.addElement(curso);
+        return model;
     }
 
     public DefaultComboBoxModel exibeUmCarro(String instrutor) {
-        return null;
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        String placa = veiculoDAO.getVeiculoByInstrutor(instrutor).getPlaca();
+        model.addElement(placa);
+        return model;
     }
 
     public DefaultComboBoxModel exibirCarros(String tipoCurso) {
-        return null;
+        ArrayList<Veiculo> veiculos = veiculoDAO.getVeiculosByCurso(tipoCurso);
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        model.addElement("<selecione>");
+        
+        for(Veiculo carro : veiculos){
+            model.addElement(carro.getPlaca());
+        }
+        
+        return model;
     }
 
-    public String exibirNumeroDeAulas() {
-        return "kk";
-    }
-
-    public Object exibirInfosTela(String cpf) {
+      public Object exibirInfosTela(String cpf) {
         ArrayList<Historico> historico = alunoDAO.getHistoricoAulasPraticas(cpf);
         if (historico != null) {
             /*pega uma aula de exemplo para extrair o instrutor responsavle por ela*/
@@ -86,20 +114,20 @@ public class AgendaControl {
             //pega o instrutor responsavel por aquela aula
             String instrutor = pratica.getInstrutor().getNome();
             //pega a placa do carro
-//            String placaCarro = veiculoDAO.getVeiculoByInstrutor(instrutor).getPlaca();
+            String placaCarro = veiculoDAO.getVeiculoByInstrutor(instrutor).getPlaca();
             //pega o curso que eh daquele carro
-            //String curso = veiculoDAO.getCursoByVeiculo(placaCarro);
+            String curso = veiculoDAO.getCursoByVeiculo(placaCarro);
             
             //SETANDO DADOS NA TELA
-            //telaAgenda.getInstrutorCarro().setText(instrutor);
-            //DefaultComboBoxModel cursoModel = exibeUmCurso(curso);
-            //telaAgenda.getTipoCarro().setModel(cursoModel);
-            //DefaultComboBoxModel carroModel = exibeUmCarro(placaCarro);
-            //telaAgenda.getTipoCarro().setModel(carroModel);
+            telaAgenda.getInstrutorCarro().setText(instrutor);
+            DefaultComboBoxModel cursoModel = exibeUmCurso(curso);
+            telaAgenda.getTipoCarro().setModel(cursoModel);
+            DefaultComboBoxModel carroModel = exibeUmCarro(placaCarro);
+            telaAgenda.getTipoCarro().setModel(carroModel);
             
         } else {
            String tipoCurso = telaAgenda.getTipoCarro().getSelectedItem().toString();
-            return exibirCarros(tipoCurso);
+            return (DefaultComboBoxModel) exibirCarros(tipoCurso);
                        
         }
         return null;
@@ -122,46 +150,48 @@ public class AgendaControl {
         return true;
     }
 
-    public void getSelectedAulas(JTable entryTable) {
-        DefaultTableModel model = (DefaultTableModel) entryTable.getModel();
-        if (entryTable.getRowCount() > 0) {
-            if (entryTable.getSelectedRowCount() > 0) {
-                int selectedRow[] = entryTable.getSelectedRows();
-                for (int i : selectedRow) {
-                    int id = Integer.parseInt(entryTable.getValueAt(i, 0).toString());
-                    double val1 = Double.parseDouble(entryTable.getValueAt(i, 1).toString());
-                    double val2 = Double.parseDouble(entryTable.getValueAt(i, 2).toString());
-                    model.removeRow(i);
-                }
+    public ArrayList<Praticas> getSelectedAulas(JTable entryTable) {
+        ArrayList<Praticas> aulas = new ArrayList<>();
+        int rows[] = entryTable.getSelectedRows();
+        
+        for(int i=0; i < rows.length; i++){
+            String codigo = entryTable.getValueAt(rows[i], 0).toString();
+            Praticas pratica = (Praticas) aulaDAO.getAulaByCodigo(codigo);
+            aulas.add(pratica);
+        }
+        
+        return aulas;
+    }
+
+    public void agendarAulaPratica(String aluno, ArrayList<Praticas> aulas) throws ClassNotFoundException, SQLException {
+        Aluno alunoObj = alunoDAO.getAlunoByCPF(aluno);
+       
+        ArrayList<Historico> historico = alunoDAO.getHistoricoAulasPraticas(aluno);
+        int historicoSize = historico.size();
+        
+        ArrayList<Aulas> aulasReservadas = aulaDAO.getAulasByAluno(aluno);
+        int reservasSize = aulasReservadas.size();
+        
+        int totalAulas = historicoSize + reservasSize;
+
+        if (totalAulas < 24) {
+            alunoObj.setAulasPraticas(aulas);
+            for (Aulas aula : aulas) {
+                aulaDAO.setAlunoToPratica(String.valueOf(aula.getCodigo()),aluno);
+                aulaDAO.updateStatusReservado(aula.getCodigo(), 1);
             }
+            this.mensagemConfirmacao(telaAgenda, "Aulas agendadas com sucesso!");
+        } else {
+            this.mensagemErro(telaAgenda, "Impossivel reservar este numero de aulas práticas para o aluno, verifique quantas aulas faltam para a conclusão do curso");
+
         }
     }
 
-//    public void agendarAulaPratica(String aluno, Collection aulas) throws ClassNotFoundException, SQLException {
-//        Aluno alunoObj = alunoDAO.getAlunoByCPF(aluno);
-//        ArrayList<Historico> historico = alunoDAO.getHistoricoAulasPraticas(aluno);
-//        int historicoSize = historico.size();
-//        ArrayList<Aulas> aulasReservadas = aulaDAO.getAulasByAluno(aluno);
-//        int reservasSize = aulasReservadas.size();
-//        int totalAulas = historicoSize + reservasSize;
-//        if (totalAulas < 24) {
-//
-//            alunoObj.setAulasPraticas(aulas);
-//
-//            aulaDAO.setAlunoToPratica(aluno);
-//
-//            for (cada aula ) {
-//                aulaDAO.updateStatusReservado(aula, status);
-//            }
-//
-//            mensagem de confirmacao
-//        } else {
-//
-//            mensagem de erro que vai receber uma string
-//        }
-//    }
-
     //FIM DA TELA DE AGENDAMENTO DE PRATICAS
+    
+    
+    
+    
     //AGENDAMENTO DE AULAS TEORICAS
     public ArrayList<String> aulasFaltantes(String aluno) {
         return null;
@@ -184,17 +214,67 @@ public class AgendaControl {
     }
 
     //FIM DO AGENDAMENTO DE AULAS TEORICAS
-    //AGENDAMENTOD E PROVAS
-    public void agendarProva(String tipo, String aluno) {
+    
+    
+    
+    
+    
+    
+    
+//AGENDAMENTO DE PROVAS
+    public void agendarProva(String cpf, String data) throws ClassNotFoundException, SQLException {
+        Prova prova = provasDAO.getProvaByData(data);
+        String codigo = String.valueOf(prova.getCodigo());
+        if(!prova.equals(null)){
+            alunoDAO.setProvaToAluno(codigo, cpf);
+            mensagemConfirmacao(telaAgenda, "Prova agendada com sucesso!");
+        }
 
     }
+    
+    public DefaultTableModel exibirProvas(String tipo) throws ClassNotFoundException, SQLException{
+        ArrayList<Prova> provas = provasDAO.getProvasByTipo(tipo);
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Data");
+        model.addColumn("Horario");
+        
+        for(Prova prova : provas){
+            String d = prova.getData().toString();
+            String h = prova.getHorario();
+            model.addRow(new Object[]{d,h});
+        }
+        
+        return model;
+    }
+    
+    public String verificarCPF(String cpf) throws ClassNotFoundException, SQLException{
+        Aluno aluno = alunoDAO.getAlunoByCPF(cpf);
+        if(aluno==null){
+            mensagemErro(telaAgenda, "CPF não encontrado no sistema!");
+        }else{
+           return principal.exibirNomeAluno(cpf);
+        }
+        return null;
+    }
+//FIM DO AGENDAMENTO DE PROVAS
+    
 
+    
+    
+    
+    
+    
+    
     public void mensagemConfirmacao(Component tela, String msg) {
         JOptionPane.showMessageDialog(tela, msg, "CONFIRMACAO", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void mensagemErro(Component tela, String msg) {
-        JOptionPane.showMessageDialog(tela, msg, "ERRO", JOptionPane.ERROR);
+        JOptionPane.showMessageDialog(tela, msg, "ERRO", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public TelaAgendamento getTelaAgenda() {
+        return telaAgenda;
     }
 
 }

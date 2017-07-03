@@ -22,4 +22,26 @@ public abstract class Aulas {
     public Integer getCodigo() {
         return codigo;
     }
+
+    public String getMateria() {
+        return materia;
+    }
+
+    public void setMateria(String materia) {
+        this.materia = materia;
+    }
+
+    public Curso getM_Curso() {
+        return m_Curso;
+    }
+
+    public void setM_Curso(Curso m_Curso) {
+        this.m_Curso = m_Curso;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+    
+    
 }//end Aulas
