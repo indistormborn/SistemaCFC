@@ -128,7 +128,7 @@ public class AulasControl {
         
     }
     
-    public DefaultTableModel exibeAulasAluno(String cpf){
+    public DefaultTableModel exibeAulasAluno(String cpf) throws ClassNotFoundException, SQLException{
         
         ArrayList<Historico> historicoAluno = alunoDAO.getHistoricoAulasPraticas(cpf);
         
@@ -149,8 +149,8 @@ public class AulasControl {
         return model;
     }
     
-    public void registrarFrequenciaAlunoEmUmaAula(String codigoAula, String cpf){
-        alunoDAO.setAulaToAluno(Integer.parseInt(codigoAula), cpf);
+    public void registrarFrequenciaAlunoEmUmaAula(String codigoAula, String cpf) throws ClassNotFoundException, SQLException{
+        aulasDAO.setAlunoToPratica(codigoAula, cpf);
     }
     
     //FIM DAS INTERAÇÕES DE TELA

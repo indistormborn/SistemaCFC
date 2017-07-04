@@ -11,10 +11,14 @@ import java.util.Date;
  */
 public class Historico {
 
+    
+        /*frequencia de boo pra int
+         aulaT e aulaP add pq n da pra fazer downcastin*/
+    
 	protected Date data;
-	protected boolean frequencia; //esta variavel serve tbm para indicar o desempenho da prova true = aprovado and false=reprovado
+	protected int frequencia; //esta variavel serve tbm para indicar o desempenho da prova true = aprovado and false=reprovado
 	protected Prova prova;
-	protected Aulas aulas;
+	protected Aulas aula;
 
 	public Historico(){
 
@@ -24,15 +28,40 @@ public class Historico {
             return null;
         }
         
-        public boolean getFrequencia(){
-            return this.frequencia;
-        }
-        
-        public Date getData(){
-            return this.data;
-        }
-        
 	public void finalize() throws Throwable {
 
 	}
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public int getFrequencia() {
+        return frequencia;
+    }
+
+    public void setFrequencia(int frequencia) {
+        this.frequencia = frequencia;
+    }
+
+    public Prova getProva() {
+        return prova;
+    }
+
+    public void setProva(Prova prova) {
+        this.prova = prova;
+    }
+
+    public void setAula(Aulas aula) {
+        this.aula = aula;
+    }
+
+   
+
+    
+        
 }//end Hist�rico

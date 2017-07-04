@@ -5,6 +5,10 @@
  */
 package sistemacfc.src.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import sistemacfc.src.model.Veiculo;
 
@@ -14,6 +18,11 @@ import sistemacfc.src.model.Veiculo;
  */
 public class VeiculosDAO {
     
+    private Conexao conexao;
+    
+    public VeiculosDAO(){
+        this.conexao = new Conexao();
+    }
     
     public Veiculo getVeiculoByPlaca(String placa){
         return new Veiculo();
@@ -23,8 +32,19 @@ public class VeiculosDAO {
         return null;
     }
     
-    public ArrayList<Veiculo> getVeiculosByCurso(String curso){
-        return new ArrayList<>();
+    public ArrayList<Veiculo> getVeiculosByCurso(String curso) throws ClassNotFoundException, SQLException {
+        ArrayList<Veiculo> veiculos = new ArrayList<>();
+        Connection conn = conexao.novaConexao();
+        String query = "SELECT * FROM veiculos WHERE tipo='"+curso+"'";
+        PreparedStatement stm = conn.prepareStatement(query);
+        ResultSet set = stm.executeQuery();
+        while(set.next()){
+            Veiculo veiculo = new Veiculo();
+            veiculo.setPlaca(set.getString("placa"));
+            veiculos.add(veiculo);
+        }
+        conn.close();
+        return veiculos;
     }
     
     public Veiculo getVeiculoByInstrutor(String instrutor){

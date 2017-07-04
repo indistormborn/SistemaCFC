@@ -58,7 +58,7 @@ public class AgendaControl {
     }
     
     /*AGENDAMENTO DE AULAS PRATICAS*/
-    public DefaultTableModel exibeAulasTable(String instrutor) {
+    public DefaultTableModel exibeAulasTable(String instrutor) throws ClassNotFoundException, SQLException{
         ArrayList<Praticas> aulas = aulaDAO.getPraticasByInstrutor(instrutor);
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Codigo");
@@ -89,7 +89,7 @@ public class AgendaControl {
         return model;
     }
 
-    public DefaultComboBoxModel exibirCarros(String tipoCurso) {
+    public DefaultComboBoxModel exibirCarros(String tipoCurso) throws ClassNotFoundException, SQLException {
         ArrayList<Veiculo> veiculos = veiculoDAO.getVeiculosByCurso(tipoCurso);
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         model.addElement("<selecione>");
@@ -101,7 +101,7 @@ public class AgendaControl {
         return model;
     }
 
-      public Object exibirInfosTela(String cpf) {
+      public Object exibirInfosTela(String cpf) throws SQLException, ClassNotFoundException {
         ArrayList<Historico> historico = alunoDAO.getHistoricoAulasPraticas(cpf);
         if (historico != null) {
             /*pega uma aula de exemplo para extrair o instrutor responsavle por ela*/
@@ -133,7 +133,7 @@ public class AgendaControl {
         return null;
     }
 
-    public boolean verificaCursoTeoricoCompleto(String aluno) {
+    public boolean verificaCursoTeoricoCompleto(String aluno) throws ClassNotFoundException, SQLException {
         ArrayList<Historico> historicoTeoricas = alunoDAO.getHistoricoAulasTeoricas(aluno);
         int teoricasSize = historicoTeoricas.size();
         Prova provaTeorica = alunoDAO.getProvaAprovadaByTipo(aluno, "teorica");
@@ -150,7 +150,7 @@ public class AgendaControl {
         return true;
     }
 
-    public ArrayList<Praticas> getSelectedAulas(JTable entryTable) {
+    public ArrayList<Praticas> getSelectedAulas(JTable entryTable) throws ClassNotFoundException, SQLException {
         ArrayList<Praticas> aulas = new ArrayList<>();
         int rows[] = entryTable.getSelectedRows();
         

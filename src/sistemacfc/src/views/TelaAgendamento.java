@@ -530,7 +530,13 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private void tipoCarroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoCarroItemStateChanged
         if(evt.getStateChange()==ItemEvent.SELECTED){
            String cpf = cpfPratica.getText();
-           placaCarro.setModel((DefaultComboBoxModel) control.exibirInfosTela(cpf));
+            try {
+                placaCarro.setModel((DefaultComboBoxModel) control.exibirInfosTela(cpf));
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+            }
          }
     }//GEN-LAST:event_tipoCarroItemStateChanged
 
