@@ -176,6 +176,8 @@ public class TelaDesempenhoProva extends javax.swing.JFrame {
 
     private void btnRegistrarDesempenhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarDesempenhoActionPerformed
        String mensagem = controlador.definirDesempenhoEmProva(cpf.getText(), "aprovado", prova.getText());
+       
+       
     }//GEN-LAST:event_btnRegistrarDesempenhoActionPerformed
 
     /**
