@@ -57,4 +57,12 @@ public class ProvasDAO {
         }
         return prova;
     }
+    
+    public String getTipoUltimaProva(String cpf){
+        return null;
+    }
+    
+    public void atualizaDesempenho(String cpf, String desempenho){
+        
+    }
 }

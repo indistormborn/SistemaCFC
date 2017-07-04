@@ -18,6 +18,7 @@ import sistemacfc.src.model.Administrador;
 import sistemacfc.src.model.Instrutor;
 import sistemacfc.src.model.Professor;
 import sistemacfc.src.model.Usuario;
+import sistemacfc.src.views.TelaDesempenhoProva;
 import sistemacfc.src.views.TelaInicial;
 import sistemacfc.src.views.TelaLogin;
 
@@ -36,6 +37,7 @@ public class PrincipalControl {
     private CadastroControl cadastro;
     private AgendaControl agenda;
     private AulasControl aulas;
+    private TelaDesempenhoProva telaDesempenhoProva;
 
     public PrincipalControl() {
 
@@ -104,23 +106,7 @@ public class PrincipalControl {
 
         return true;
     }
-    
-    
-    //DESEMPENHO EM PROVA
-    public String exibeTipoProvaRealizada(String cpfAluno){
-        return null;
-    }
-    
-    public String getResultadoFromTela(){
-        return null;
-    }
-    
-    public void definirDesempenhoEmProva(){
         
-    }
-    
-    
-    
     public String exibirNomeAluno(String cpf) throws ClassNotFoundException, SQLException{
         return alunoDAO.getAlunoByCPF(cpf).getNome();
     }
@@ -142,6 +128,13 @@ public class PrincipalControl {
     }
     public void setTelaLogin(TelaLogin telaLogin) {
         this.telaLogin = telaLogin;
+    }
+    
+    public TelaLogin getTelaDesempenhoProva() {
+        return telaLogin;
+    }
+    public void setTelaDesempenhoProva(TelaDesempenhoProva telaDesempenhoProva) {
+        this.telaDesempenhoProva = telaDesempenhoProva;
     }
     public Usuario getUsuarioSessao() {
         return usuarioSessao;

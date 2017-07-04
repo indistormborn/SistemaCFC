@@ -5,16 +5,24 @@
  */
 package sistemacfc.src.views;
 
+import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import sistemacfc.src.control.AulasControl;
+
 /**
  *
  * @author Indiara
  */
 public class TelaDesempenhoProva extends javax.swing.JFrame {
 
+    private AulasControl controlador;
     /**
      * Creates new form TelaDesempenhoProva
      */
-    public TelaDesempenhoProva() {
+    public TelaDesempenhoProva(AulasControl ctrl) {
+        this.controlador = ctrl;
         initComponents();
     }
 
@@ -37,7 +45,7 @@ public class TelaDesempenhoProva extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         aprovado = new javax.swing.JRadioButton();
         reprovado = new javax.swing.JRadioButton();
-        jButton7 = new javax.swing.JButton();
+        btnRegistrarDesempenho = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,6 +56,11 @@ public class TelaDesempenhoProva extends javax.swing.JFrame {
         jLabel41.setText("CPF Aluno");
 
         cpf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cpfKeyPressed(evt);
+            }
+        });
 
         jLabel42.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel42.setText("Nome do aluno");
@@ -72,8 +85,13 @@ public class TelaDesempenhoProva extends javax.swing.JFrame {
         reprovado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         reprovado.setText("Reprovado");
 
-        jButton7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton7.setText("Registrar desempenho");
+        btnRegistrarDesempenho.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnRegistrarDesempenho.setText("Registrar desempenho");
+        btnRegistrarDesempenho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarDesempenhoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +126,7 @@ public class TelaDesempenhoProva extends javax.swing.JFrame {
                                     .addComponent(aprovado)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(120, 120, 120)
-                        .addComponent(jButton7)))
+                        .addComponent(btnRegistrarDesempenho)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -135,12 +153,30 @@ public class TelaDesempenhoProva extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(reprovado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegistrarDesempenho, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) 
+        {
+            try {
+                nome.setText(controlador.exibeNomeAluno(cpf.getText()));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaDesempenhoProva.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaDesempenhoProva.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            prova.setText(controlador.exibeTipoProvaRealizada(cpf.getText()));
+        }
+    }//GEN-LAST:event_cpfKeyPressed
+
+    private void btnRegistrarDesempenhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarDesempenhoActionPerformed
+       String mensagem = controlador.definirDesempenhoEmProva(cpf.getText(), "aprovado", prova.getText());
+    }//GEN-LAST:event_btnRegistrarDesempenhoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,8 +189,8 @@ public void teste(){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton aprovado;
+    private javax.swing.JButton btnRegistrarDesempenho;
     private javax.swing.JTextField cpf;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;

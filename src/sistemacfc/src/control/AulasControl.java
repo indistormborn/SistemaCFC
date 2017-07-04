@@ -18,6 +18,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 import sistemacfc.src.dao.AlunoDAO;
 import sistemacfc.src.dao.AulaDAO;
+import sistemacfc.src.dao.ProvasDAO;
 import sistemacfc.src.dao.TurmaDAO;
 import sistemacfc.src.dao.UsuarioDAO;
 import sistemacfc.src.model.Aulas;
@@ -28,6 +29,7 @@ import sistemacfc.src.model.Turma;
 import sistemacfc.src.model.Usuario;
 import sistemacfc.src.views.TelaAulas;
 import sistemacfc.src.model.Praticas;
+import sistemacfc.src.views.TelaDesempenhoProva;
 
 /**
  *
@@ -41,18 +43,19 @@ public class AulasControl {
     private AulaDAO aulasDAO;
     private TelaAulas telaAula;
     private AlunoDAO alunoDAO;
+    private TelaDesempenhoProva telaDesempenhoProva;
+    private ProvasDAO provasDAO;
 
     public AulasControl(PrincipalControl ctrl) {
         this.turmaDAO = new TurmaDAO();
         this.usuarioDAO = new UsuarioDAO();
         this.aulasDAO = new AulaDAO();
         this.telaAula = new TelaAulas(this);
+        this.telaDesempenhoProva = new TelaDesempenhoProva(this);
         this.alunoDAO = new AlunoDAO();
+        this.provasDAO = new ProvasDAO();
         this.principal = ctrl;
-    }
-
-    public AulasControl() {
-
+        
     }
 
     /*INTERAÇÕES DE TELA aba 'Suas Turmas'*/
@@ -135,13 +138,13 @@ public class AulasControl {
         model.addColumn("Horario");
         
         for(Historico historico: historicoAluno){
-            if(historico.getFrequencia() == null){
-                Praticas aula = (Praticas) historico.getAula();
-                Integer c = aula.getCodigo();
-                String d = historico.getData().toString();
-                String h = String.valueOf(aula.getHorario());
-                model.addRow(new Object[]{c,d,h});
-            }
+//            if(historico.getFrequencia() == null){
+//                Praticas aula = (Praticas) historico.getAula();
+//                Integer c = aula.getCodigo();
+//                String d = historico.getData().toString();
+//                String h = String.valueOf(aula.getHorario());
+//                model.addRow(new Object[]{c,d,h});
+//            }
         }
         return model;
     }
@@ -180,6 +183,49 @@ public class AulasControl {
 
     private void atualizaTabela() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public TelaDesempenhoProva getTelaDesempenho() {
+        return telaDesempenhoProva;
+    }
+    
+    public String exibeTipoProvaRealizada(String cpfAluno){
+        String tipoProva = provasDAO.getTipoUltimaProva(cpfAluno);
+        
+        return tipoProva;
+    }
+    
+    public String exibeNomeAluno(String cpfAluno) throws ClassNotFoundException, SQLException{
+        String nome = alunoDAO.getAlunoByCPF(cpfAluno).getNome();
+        
+        return nome;
+    }
+    
+    public String getResultadoFromTela(){
+        return null;
+    }
+    
+    public String definirDesempenhoEmProva(String cpf, String desempenho, String tipo){
+        
+        String mensagem;
+        if(desempenho == "reprovado"){    
+            mensagem = "Informe o aluno que deverá realizar novamente a prova";
+        }
+        else
+        {
+            if(tipo == "Prática")
+            {
+                mensagem = "Informe o aluno da aprovação na prova prática e o direcione para o DETRAN";
+            }
+            else
+            {
+                mensagem = "Informe o aluno que deve prosseguir com as aulas práticas";
+            }
+        }
+        
+        provasDAO.atualizaDesempenho(cpf, desempenho);
+        
+        return mensagem;
     }
 
 }
