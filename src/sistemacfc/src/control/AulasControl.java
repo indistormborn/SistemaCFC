@@ -16,15 +16,18 @@ import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
+import sistemacfc.src.dao.AlunoDAO;
 import sistemacfc.src.dao.AulaDAO;
 import sistemacfc.src.dao.TurmaDAO;
 import sistemacfc.src.dao.UsuarioDAO;
 import sistemacfc.src.model.Aulas;
+import sistemacfc.src.model.Historico;
 import sistemacfc.src.model.Professor;
 import sistemacfc.src.model.Teoricas;
 import sistemacfc.src.model.Turma;
 import sistemacfc.src.model.Usuario;
 import sistemacfc.src.views.TelaAulas;
+import sistemacfc.src.model.Praticas;
 
 /**
  *
@@ -37,12 +40,14 @@ public class AulasControl {
     private UsuarioDAO usuarioDAO;
     private AulaDAO aulasDAO;
     private TelaAulas telaAula;
+    private AlunoDAO alunoDAO;
 
     public AulasControl(PrincipalControl ctrl) {
         this.turmaDAO = new TurmaDAO();
         this.usuarioDAO = new UsuarioDAO();
         this.aulasDAO = new AulaDAO();
         this.telaAula = new TelaAulas(this);
+        this.alunoDAO = new AlunoDAO();
         this.principal = ctrl;
     }
 
@@ -120,17 +125,29 @@ public class AulasControl {
         
     }
     
-    //SEUS ALUNOS
     public DefaultTableModel exibeAulasAluno(String cpf){
-        return null;
+        
+        ArrayList<Historico> historicoAluno = alunoDAO.getHistoricoAulasPraticas(cpf);
+        
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Codigo");
+        model.addColumn("Data");
+        model.addColumn("Horario");
+        
+        for(Historico historico: historicoAluno){
+            if(historico.getFrequencia() == null){
+                Praticas aula = (Praticas) historico.getAula();
+                Integer c = aula.getCodigo();
+                String d = historico.getData().toString();
+                String h = String.valueOf(aula.getHorario());
+                model.addRow(new Object[]{c,d,h});
+            }
+        }
+        return model;
     }
     
-    public void registrarFrequenciaAlunoEmUmaAula(String codigoAula){
-        
-    }
-    
-    public void registrarFrequenciaAlunoEmTodas(Collection aulas){
-        
+    public void registrarFrequenciaAlunoEmUmaAula(String codigoAula, String cpf){
+        alunoDAO.setAulaToAluno(Integer.parseInt(codigoAula), cpf);
     }
     
     //FIM DAS INTERAÇÕES DE TELA

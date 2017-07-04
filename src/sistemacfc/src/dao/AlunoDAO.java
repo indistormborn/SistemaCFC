@@ -85,6 +85,10 @@ public class AlunoDAO {
         stm.execute();
         conn.close();
     } 
+
+    public void setAulaToAluno(int codigoAula, String cpf ) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
    
     
 }

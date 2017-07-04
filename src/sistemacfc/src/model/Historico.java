@@ -24,6 +24,14 @@ public class Historico {
             return null;
         }
         
+        public boolean getFrequencia(){
+            return this.frequencia;
+        }
+        
+        public Date getData(){
+            return this.data;
+        }
+        
 	public void finalize() throws Throwable {
 
 	}

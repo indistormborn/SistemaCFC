@@ -5,11 +5,16 @@
  */
 package sistemacfc.src.views;
 
+import com.sun.glass.events.KeyEvent;
 import java.awt.event.ItemEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import sistemacfc.src.control.AulasControl;
+import sistemacfc.src.model.Aulas;
 
 /**
  *
@@ -70,18 +75,18 @@ public class TelaAulas extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        cpfAluno = new javax.swing.JTextField();
+        nomeAluno = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        aulasAluno = new javax.swing.JTable();
+        btnRegistraAulaUnica = new javax.swing.JButton();
+        btnRegistraTodasAulas = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        codigoAula = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
@@ -395,12 +400,22 @@ public class TelaAulas extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel17.setText("Aluno");
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField9.setText("cpf do aluno");
+        cpfAluno.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cpfAluno.setText("cpf do aluno");
+        cpfAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpfAlunoActionPerformed(evt);
+            }
+        });
+        cpfAluno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cpfAlunoKeyPressed(evt);
+            }
+        });
 
-        jTextField10.setEditable(false);
-        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField10.setText("Jão da silva fontes neto");
+        nomeAluno.setEditable(false);
+        nomeAluno.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nomeAluno.setText("Jão da silva fontes neto");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setText("Nome");
@@ -411,7 +426,7 @@ public class TelaAulas extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel20.setText("Aulas sem registro de frequencia");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        aulasAluno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"P009", "25/05/17", "12:00", "A"}
             },
@@ -427,21 +442,31 @@ public class TelaAulas extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(2).setHeaderValue("Horario");
-            jTable3.getColumnModel().getColumn(3).setHeaderValue("Categoria do veiculo");
+        jScrollPane3.setViewportView(aulasAluno);
+        if (aulasAluno.getColumnModel().getColumnCount() > 0) {
+            aulasAluno.getColumnModel().getColumn(2).setHeaderValue("Horario");
+            aulasAluno.getColumnModel().getColumn(3).setHeaderValue("Categoria do veiculo");
         }
 
-        jButton4.setText("Registrar frequencia em aula");
+        btnRegistraAulaUnica.setText("Registrar frequencia em aula");
+        btnRegistraAulaUnica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistraAulaUnicaActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Registrar frequencia em todas");
+        btnRegistraTodasAulas.setText("Registrar frequencia em todas");
+        btnRegistraTodasAulas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistraTodasAulasActionPerformed(evt);
+            }
+        });
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel21.setText("<html><center>Insira o codigo da aula <br> a ser registrada");
 
-        jTextField11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTextField11.setText("cod");
+        codigoAula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        codigoAula.setText("cod");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -454,11 +479,11 @@ public class TelaAulas extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cpfAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nomeAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,15 +495,15 @@ public class TelaAulas extends javax.swing.JFrame {
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton4)
-                                            .addComponent(jButton5)))
+                                            .addComponent(btnRegistraAulaUnica)
+                                            .addComponent(btnRegistraTodasAulas)))
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addGap(22, 22, 22)
                                         .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 5, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(codigoAula, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(42, 42, 42)))))
                 .addContainerGap())
         );
@@ -487,10 +512,10 @@ public class TelaAulas extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cpfAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel17)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nomeAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel18)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -501,11 +526,11 @@ public class TelaAulas extends javax.swing.JFrame {
                         .addGap(46, 46, 46)
                         .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(codigoAula, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
+                        .addComponent(btnRegistraAulaUnica)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5))
+                        .addComponent(btnRegistraTodasAulas))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jLabel20)
@@ -810,6 +835,33 @@ public class TelaAulas extends javax.swing.JFrame {
      }
     }//GEN-LAST:event_suasturmasItemStateChanged
 
+    private void cpfAlunoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpfAlunoKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            String cpf = cpfAluno.getText();
+            
+            controlador.exibeAulasAluno(cpf);
+        }
+    }//GEN-LAST:event_cpfAlunoKeyPressed
+
+    private void cpfAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfAlunoActionPerformed
+        
+    }//GEN-LAST:event_cpfAlunoActionPerformed
+
+    private void btnRegistraAulaUnicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistraAulaUnicaActionPerformed
+        controlador.registrarFrequenciaAlunoEmUmaAula(codigoAula.getText(), cpfAluno.getText());
+    }//GEN-LAST:event_btnRegistraAulaUnicaActionPerformed
+
+    private void btnRegistraTodasAulasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistraTodasAulasActionPerformed
+        TableModel model = aulasAluno.getModel();
+        
+        DefaultTableModel dtm = (DefaultTableModel) aulasAluno.getModel();
+        int nRow = dtm.getRowCount();
+        for (int i = 0 ; i < nRow ; i++)
+        {
+            controlador.registrarFrequenciaAlunoEmUmaAula(dtm.getValueAt(i,0).toString(), cpfAluno.getText());
+        }
+    }//GEN-LAST:event_btnRegistraTodasAulasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -817,14 +869,17 @@ public class TelaAulas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> aulas;
+    private javax.swing.JTable aulasAluno;
+    private javax.swing.JButton btnRegistraAulaUnica;
+    private javax.swing.JButton btnRegistraTodasAulas;
+    private javax.swing.JTextField codigoAula;
+    private javax.swing.JTextField cpfAluno;
     private javax.swing.JTextField curso;
     private javax.swing.JTextField datainicio;
     private javax.swing.JTextField dataselecionada;
     private javax.swing.JTextField datatermino;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -878,9 +933,6 @@ public class TelaAulas extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField3;
@@ -889,7 +941,7 @@ public class TelaAulas extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField nomeAluno;
     private javax.swing.JTextField periodo;
     private javax.swing.JComboBox<String> suasturmas;
     private javax.swing.JTable tabelaAulas;
